@@ -5,8 +5,10 @@ package com.example.amandaabalos.bobcatparkingapp;
  */
 
 public class LotUpdater {
+    //Current convention is that input will be sampled every minute in real-time
 
-    public LotUpdater(){}
+    public LotUpdater(){
+    }
 
     //will receive binary input from our 'sensor' that represents a car leaving or entering a lot
     public boolean trip(ParkingLot p){
@@ -15,9 +17,7 @@ public class LotUpdater {
 
     public void update(ParkingLot p){
         if(trip(p)){
-            if(!p.is_full()) {
-                p.curr_capacity++;
-            }
+            p.curr_capacity++;
         }
         else{
             p.curr_capacity--;

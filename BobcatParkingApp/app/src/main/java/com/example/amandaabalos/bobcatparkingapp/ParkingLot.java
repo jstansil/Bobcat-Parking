@@ -4,15 +4,15 @@ package com.example.amandaabalos.bobcatparkingapp;
  * Created by djsta on 11/2/2017.
  */
 
-public class ParkingLot {
+public class ParkingLot implements java.io.Serializable {
     private int max_capacity;
     private String name;
-    private char [] permit; //holds each valid permit type
+    private String permit; //each permit type seperated by a colon
     private double dist;
     public int curr_capacity = 0;
     Database lotinfo;
 
-    public ParkingLot(int mc, char [] p, double d, String n, Database db){
+    public ParkingLot(int mc, String p, double d, String n, Database db){
         this.max_capacity = mc;
         this.permit = p;
         this.dist = d;
@@ -41,7 +41,7 @@ public class ParkingLot {
         return this.name;
     }
 
-    public char [] getPermits(){
+    public String getPermits(){
         return this.permit;
     }
 
