@@ -10,13 +10,13 @@ public class ParkingLot implements java.io.Serializable {
     private String permit; //each permit type seperated by a colon
     private double dist;
     public int curr_capacity = 0;
-    Database lotinfo;
+    //Database lotinfo;
 
-    public ParkingLot(int mc, String p, double d, String n, Database db){
+    public ParkingLot(int mc, String p, double d, String n){
         this.max_capacity = mc;
         this.permit = p;
         this.dist = d;
-        this.lotinfo = db;
+        //this.lotinfo = db;
         this.name = n;
     }
 

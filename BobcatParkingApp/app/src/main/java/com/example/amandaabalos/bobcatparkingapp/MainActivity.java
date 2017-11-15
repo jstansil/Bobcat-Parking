@@ -9,32 +9,33 @@ import android.widget.Button;
 public class MainActivity extends AppCompatActivity {
 
    /*myDB is the instance*/
-    Database myDB;
+    //Database myDB;
     public ParkingLot [] lots = new ParkingLot[9];
-
+    private LotUpdater update;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        myDB = new Database(this);
+        //myDB = new Database(this);
+        update = new LotUpdater();
 
         //initialize all the parking lots. could probably find a prettier way to do this
         //also, the values put in for distance & max capacity are wrong
         //they are arranged by their relative northern position on campus. permit values were taken from http://taps.ucmerced.edu/parkingmaps
-        lots[0] = new ParkingLot(200, "X;A;ACP;AUB;ALEV;B;BCP;DP;MP;AM;M;C;FSLEV;HCP;CCP", 10.0, "Lake One", myDB);
-        lots[1] = new ParkingLot(300, "X;DP;MP;ALEV;A;ACP;AUB;FSLEV;B;BCP;CCP;C;HCP", 12.0, "Lake Two", myDB);
+        lots[0] = new ParkingLot(200, "X;A;ACP;AUB;ALEV;B;BCP;DP;MP;AM;M;C;FSLEV;HCP;CCP", 10.0, "Lake One");
+        lots[1] = new ParkingLot(300, "X;DP;MP;ALEV;A;ACP;AUB;FSLEV;B;BCP;CCP;C;HCP", 12.0, "Lake Two");
 
-        lots[2] = new ParkingLot(15, "X;DP;MP;ALEV;A;ACP;AUB;FSLEV;B;BCP;C;CCP;HCP", 8.5, "ECEC", myDB);
+        lots[2] = new ParkingLot(15, "X;DP;MP;ALEV;A;ACP;AUB;FSLEV;B;BCP;C;CCP;HCP", 8.5, "ECEC");
 
-        lots[3] = new ParkingLot(400, "X;DP;MP;ALEV;A;ACP;AUB;FSLEV;B;BCP;CCP;C;HCP", 11.0, "Evolution", myDB);
+        lots[3] = new ParkingLot(400, "X;DP;MP;ALEV;A;ACP;AUB;FSLEV;B;BCP;CCP;C;HCP", 11.0, "Evolution");
 
-        lots[4] = new ParkingLot(20, "X;ACP;AUB;DP;EV;AM;VRIDE;EZPARK", 5.5, "Library One", myDB);
-        lots[5] = new ParkingLot(15, "A;ACP;ALEV;MP", 5.0, "Library Two", myDB);
+        lots[4] = new ParkingLot(20, "X;ACP;AUB;DP;EV;AM;VRIDE;EZPARK", 5.5, "Library One");
+        lots[5] = new ParkingLot(15, "A;ACP;ALEV;MP", 5.0, "Library Two");
 
-        lots[6] = new ParkingLot(100, "X;A;ACP;AUB;EZPARK;DP;MP;AM;ALEV", 2.5, "Le Grand", myDB);
+        lots[6] = new ParkingLot(100, "X;A;ACP;AUB;EZPARK;DP;MP;AM;ALEV", 2.5, "Le Grand");
 
-        lots[7] = new ParkingLot(200, "X;A;ACP;AUB;ALEV;LEV;B;BCP;DP;MP", 5.5, "North Bowl One", myDB);
-        lots[8] = new ParkingLot(250, "X;A;ACP;AUB;ALEV;LEV;B;BCP;DP;MP;FSC", 6.0, "North Bowl Two", myDB);
+        lots[7] = new ParkingLot(200, "X;A;ACP;AUB;ALEV;LEV;B;BCP;DP;MP", 5.5, "North Bowl One");
+        lots[8] = new ParkingLot(250, "X;A;ACP;AUB;ALEV;LEV;B;BCP;DP;MP;FSC", 6.0, "North Bowl Two");
 
         //one button for each lot. right now the menu is super basic, and each button is initialized one by one.
         //could probably be cleaner
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), ParkingInfo.class);
-                i.putExtra("com.example.amandaabalos.bobcatparkingapp.lot1", lots[0]);
+                i.putExtra("com.example.amandaabalos.bobcatparkingapp.lotrequest", lots[0]);
                 startActivity(i);
             }
         });
@@ -61,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), ParkingInfo.class);
-                i.putExtra("com.example.amandaabalos.bobcatparkingapp.lot1", lots[1]);
+                i.putExtra("com.example.amandaabalos.bobcatparkingapp.lotrequest", lots[1]);
                 startActivity(i);
             }
         });
@@ -69,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), ParkingInfo.class);
-                i.putExtra("com.example.amandaabalos.bobcatparkingapp.lot1", lots[2]);
+                i.putExtra("com.example.amandaabalos.bobcatparkingapp.lotrequest", lots[2]);
                 startActivity(i);
             }
         });
@@ -77,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), ParkingInfo.class);
-                i.putExtra("com.example.amandaabalos.bobcatparkingapp.lot1", lots[3]);
+                i.putExtra("com.example.amandaabalos.bobcatparkingapp.lotrequest", lots[3]);
                 startActivity(i);
             }
         });
@@ -85,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), ParkingInfo.class);
-                i.putExtra("com.example.amandaabalos.bobcatparkingapp.lot1", lots[4]);
+                i.putExtra("com.example.amandaabalos.bobcatparkingapp.lotrequest", lots[4]);
                 startActivity(i);
             }
         });
@@ -93,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), ParkingInfo.class);
-                i.putExtra("com.example.amandaabalos.bobcatparkingapp.lot1", lots[5]);
+                i.putExtra("com.example.amandaabalos.bobcatparkingapp.lotrequest", lots[5]);
                 startActivity(i);
             }
         });
@@ -101,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), ParkingInfo.class);
-                i.putExtra("com.example.amandaabalos.bobcatparkingapp.lot1", lots[6]);
+                i.putExtra("com.example.amandaabalos.bobcatparkingapp.lotrequest", lots[6]);
                 startActivity(i);
             }
         });
@@ -109,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), ParkingInfo.class);
-                i.putExtra("com.example.amandaabalos.bobcatparkingapp.lot1", lots[7]);
+                i.putExtra("com.example.amandaabalos.bobcatparkingapp.lotrequest", lots[7]);
                 startActivity(i);
             }
         });
@@ -117,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), ParkingInfo.class);
-                i.putExtra("com.example.amandaabalos.bobcatparkingapp.lot1", lots[8]);
+                i.putExtra("com.example.amandaabalos.bobcatparkingapp.lotrequest", lots[8]);
                 startActivity(i);
             }
         });
