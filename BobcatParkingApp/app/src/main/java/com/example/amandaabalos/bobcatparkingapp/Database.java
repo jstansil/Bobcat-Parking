@@ -11,9 +11,9 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 
 //our database class that extends from our sqlite class
-public class Database extends SQLiteOpenHelper {
-
-    public static final String DATABASE_NAME = "BobcatParking.db";
+public class Database {
+}
+    /*public static final String DATABASE_NAME = "BobcatParking.db";
 
     public static final String TABLE_NAME = "LakeLot1";
     public static final String COL_1 =  "Sunday";
@@ -81,8 +81,8 @@ public class Database extends SQLiteOpenHelper {
     //every time this constructor is called,database will be created
     public Database(Context context) {
         super(context, DATABASE_NAME, null, 1);
-        /*create database and table, just for checking, wont need later*/
-        /*SQLiteDatabase db = this.getWritableDatabase();*/
+        //create database and table, just for checking, wont need later
+        //QLiteDatabase db = this.getWritableDatabase();
 
     }
 
@@ -107,3 +107,4 @@ public class Database extends SQLiteOpenHelper {
     ContentValues contentValues = new ContentValues();
     contentvalues.put();
 }
+*/
