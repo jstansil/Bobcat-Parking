@@ -10,7 +10,7 @@ public class LotUpdater {
     public LotUpdater(){
         r = new Random();
     }
-
+//test
     //will receive binary input from our 'sensor' that represents a car leaving or entering a lot
     //right now we just generate a random boolean, with a 70% chance of it being true (a car entering) and
     //30% chance of it being false (a car leaving)
