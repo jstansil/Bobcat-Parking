@@ -42,6 +42,11 @@ public class MainActivity extends AppCompatActivity {
         lots[7] = new ParkingLot(200, "X;A;ACP;AUB;ALEV;LEV;B;BCP;DP;MP", 5.5, "North Bowl One");
         lots[8] = new ParkingLot(250, "X;A;ACP;AUB;ALEV;LEV;B;BCP;DP;MP;FSC", 6.0, "North Bowl Two");
 
+        //Initial update of parking lots. this will fetch their status from the DB before they are displayed
+        for(ParkingLot l: lots){
+            update.update(l);
+        }
+
         //one button for each lot. right now the menu is super basic, and each button is initialized one by one.
         //could probably be cleaner
         Button lot1 = (Button)findViewById(R.id.button);

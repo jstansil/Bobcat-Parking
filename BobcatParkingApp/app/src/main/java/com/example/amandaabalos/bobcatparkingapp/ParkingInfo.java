@@ -14,16 +14,16 @@ public class ParkingInfo extends AppCompatActivity {
         if (getIntent().hasExtra("com.example.amandaabalos.bobcatparkingapp.lotrequest")) {
             ParkingLot to_display = (ParkingLot)getIntent().getExtras().getSerializable("com.example.amandaabalos.bobcatparkingapp.lotrequest");
             //2nd screen is passed the appropriate parking lot object. need to access and display its info
-            TextView name = (TextView)findViewById(R.id.textView);
+            TextView name = (TextView)findViewById(R.id.lotname);
             name.setText(to_display.getName());
 
-            TextView permits = (TextView)findViewById(R.id.textView2);
+            TextView permits = (TextView)findViewById(R.id.permitlist);
             permits.setText(to_display.getPermits());
 
-            TextView dist = (TextView)findViewById(R.id.textView3);
+            TextView dist = (TextView)findViewById(R.id.distance);
             dist.setText(Double.toString(to_display.getDist()));
 
-            TextView cap = (TextView)findViewById(R.id.textView4);
+            TextView cap = (TextView)findViewById(R.id.current);
             cap.setText(Integer.toString(to_display.curr_capacity));
 
         }
