@@ -39,52 +39,52 @@ public class Main3Activity extends AppCompatActivity {
 
         //one button for each lot. right now the menu is super basic, and each button is initialized one by one.
         //could probably be cleaner
-        Button lot1 = (Button)findViewById(R.id.button);
-        Button lot2 = (Button)findViewById(R.id.button2);
-        Button lot3 = (Button)findViewById(R.id.button3);
-        Button lot4 = (Button)findViewById(R.id.button4);
-        Button lot5 = (Button)findViewById(R.id.button5);
+        Button lot5 = (Button)findViewById(R.id.button);
+        Button lot6 = (Button)findViewById(R.id.button2);
+        Button lot7 = (Button)findViewById(R.id.button3);
+        Button lot8 = (Button)findViewById(R.id.button4);
+        Button lot9 = (Button)findViewById(R.id.button5);
         Button southlots = (Button)findViewById(R.id.movedown);
 
 
         //Each button press sends a different lot object to the 2nd screen
-        lot1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), ParkingInfo.class);
-                i.putExtra("com.example.amandaabalos.bobcatparkingapp.lotrequest", lots[0]);
-                startActivity(i);
-            }
-        });
-        lot2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), ParkingInfo.class);
-                i.putExtra("com.example.amandaabalos.bobcatparkingapp.lotrequest", lots[1]);
-                startActivity(i);
-            }
-        });
-        lot3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), ParkingInfo.class);
-                i.putExtra("com.example.amandaabalos.bobcatparkingapp.lotrequest", lots[2]);
-                startActivity(i);
-            }
-        });
-        lot4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), ParkingInfo.class);
-                i.putExtra("com.example.amandaabalos.bobcatparkingapp.lotrequest", lots[3]);
-                startActivity(i);
-            }
-        });
         lot5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), ParkingInfo.class);
                 i.putExtra("com.example.amandaabalos.bobcatparkingapp.lotrequest", lots[4]);
+                startActivity(i);
+            }
+        });
+        lot6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), ParkingInfo.class);
+                i.putExtra("com.example.amandaabalos.bobcatparkingapp.lotrequest", lots[5]);
+                startActivity(i);
+            }
+        });
+        lot7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), ParkingInfo.class);
+                i.putExtra("com.example.amandaabalos.bobcatparkingapp.lotrequest", lots[6]);
+                startActivity(i);
+            }
+        });
+        lot8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), ParkingInfo.class);
+                i.putExtra("com.example.amandaabalos.bobcatparkingapp.lotrequest", lots[7]);
+                startActivity(i);
+            }
+        });
+        lot9.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), ParkingInfo.class);
+                i.putExtra("com.example.amandaabalos.bobcatparkingapp.lotrequest", lots[8]);
                 startActivity(i);
             }
         });
