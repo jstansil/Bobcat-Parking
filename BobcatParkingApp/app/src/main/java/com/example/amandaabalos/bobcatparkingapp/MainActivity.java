@@ -1,11 +1,20 @@
 package com.example.amandaabalos.bobcatparkingapp;
 
+import android.os.AsyncTask;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import java.sql.Connection;
+import java.sql.Statement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import java.sql.DriverManager;
+
 
 
 public class MainActivity extends AppCompatActivity {
@@ -53,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
         for(ParkingLot l: lots){
             update.update(l);
         }
+
+
 
         //one button for each lot. right now the menu is super basic, and each button is initialized one by one.
         //could probably be cleaner
@@ -106,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Activity that calls the lot updater every minute (based on user clock)
         //Later we can also augment this to send/recieve info from the database server every minute
+        final GetData retreive = new GetData();
         final Handler delay_call = new Handler();
         Runnable call_updater = new Runnable() {
             @Override
@@ -114,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
                     //Code that is ran every minute
                     for(ParkingLot l : lots){
                         update.update(l);
+                        retreive.execute();
                     }
                 }
                 catch (Exception e) {
@@ -127,4 +140,98 @@ public class MainActivity extends AppCompatActivity {
         };
         delay_call.postDelayed(call_updater, updateDelay);
     }
+
+
+
+
+
+
+
+
+
+
+
+    //private class to get data
+    private class GetData extends AsyncTask<String,String,String> {
+
+
+        //string that is displayed in the progess text view
+        String msg = "";
+        //JDBC driver name and database URL
+        static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+        //Example: 10.20.40:3306
+        static final String DB_URL = "jdbc:mysql://" +
+                Database.DATABASE_URL + "/" +
+                Database.DATABASE_NAME;
+
+        @Override
+        protected void onPreExecute() {
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            Connection conn = null;
+            Statement stmt = null;
+
+            try {
+                Class.forName(JDBC_DRIVER);
+                conn = DriverManager.getConnection(DB_URL, Database.USERNAME, Database.PASSWORD);
+
+                stmt = conn.createStatement();
+                String sql = "SELECT * FROM Earlychildhoodlot";//table in database?
+                ResultSet rs = stmt.executeQuery(sql);
+
+               while(rs.next()) {
+                   Log.d("test", rs.getString("DAYS"));
+               }
+
+
+                rs.close();
+                stmt.close();
+                conn.close();
+
+
+            } catch (SQLException connError) {
+                msg = "An exception was thrown for JDBC.";
+                connError.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                msg = "A class not found exception was thrown.";
+                e.printStackTrace();
+            } finally {
+
+                try {
+                    if (stmt != null) {
+                        stmt.close();
+                    }
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
+                try {
+                    if (conn != null) {
+                        conn.close();
+                    }
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+
+            return null;
+        }
+
+
+        @Override
+        protected void onPostExecute(String msg) {
+        }
+
+    }
+
+
+
+
 }
