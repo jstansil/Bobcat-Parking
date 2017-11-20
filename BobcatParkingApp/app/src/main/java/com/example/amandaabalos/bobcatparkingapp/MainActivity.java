@@ -73,6 +73,11 @@ public class MainActivity extends AppCompatActivity {
         Button lot4 = (Button)findViewById(R.id.button4);
         Button northlots = (Button)findViewById(R.id.moveup);
 
+        lot1.setText(Integer.toString(lots[0].curr_capacity) + "/" + Integer.toString(lots[0].getMax_capacity()));
+        lot2.setText(Integer.toString(lots[1].curr_capacity) + "/" + Integer.toString(lots[1].getMax_capacity()));
+        lot3.setText(Integer.toString(lots[2].curr_capacity) + "/" + Integer.toString(lots[2].getMax_capacity()));
+        lot4.setText(Integer.toString(lots[3].curr_capacity) + "/" + Integer.toString(lots[3].getMax_capacity()));
+
         //Each button press sends a different lot object to the 2nd screen
         lot1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,28 +146,18 @@ public class MainActivity extends AppCompatActivity {
         delay_call.postDelayed(call_updater, updateDelay);
     }
 
-
-
-
-
-
-
-
-
-
-
     //private class to get data
     private class GetData extends AsyncTask<String,String,String> {
 
-
-        //string that is displayed in the progess text view
-        String msg = "";
-        //JDBC driver name and database URL
         static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
         //Example: 10.20.40:3306
         static final String DB_URL = "jdbc:mysql://" +
                 Database.DATABASE_URL + "/" +
                 Database.DATABASE_NAME;
+        //string that is displayed in the progess text view
+        String msg = "";
+        //JDBC driver name and database URL
+
 
         @Override
         protected void onPreExecute() {
@@ -228,10 +223,5 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String msg) {
         }
-
     }
-
-
-
-
 }

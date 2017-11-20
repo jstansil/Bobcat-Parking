@@ -48,4 +48,6 @@ public class ParkingLot implements java.io.Serializable {
     public double getDist(){
         return this.dist;
     }
+
+    public int getMax_capacity (){ return this.max_capacity; }
 }
