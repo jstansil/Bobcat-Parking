@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/BobcatParkingApp.iml" filepath="$PROJECT_DIR$/BobcatParkingApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/BobcatParkingApp.iml" filepath="$PROJECT_DIR$/.idea/modules/BobcatParkingApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/mysql-connector-java-3.0.17-ga-bin/mysql-connector-java-3.0.17-ga-bin.iml" filepath="$PROJECT_DIR$/mysql-connector-java-3.0.17-ga-bin/mysql-connector-java-3.0.17-ga-bin.iml" />
-      <module fileurl="file://C:\Users\djsta\Desktop\Bobcat-Parking\BobcatParkingApp\mysql-connector-java-3.0.17-ga-bin\mysql-connector-java-3.0.17-ga-bin.iml" filepath="C:\Users\djsta\Desktop\Bobcat-Parking\BobcatParkingApp\mysql-connector-java-3.0.17-ga-bin\mysql-connector-java-3.0.17-ga-bin.iml" />
     </modules>
   </component>
 </project>
