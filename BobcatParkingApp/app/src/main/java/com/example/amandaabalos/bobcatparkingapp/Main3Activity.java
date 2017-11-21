@@ -10,8 +10,6 @@ import android.widget.Button;
 //this is a second version of MainActivity that represents the 2nd screen containing northern parking lots
 public class Main3Activity extends AppCompatActivity {
 
-    /*myDB is the instance*/
-    //Database myDB;
     public ParkingLot [] lots;
     private LotUpdater update;
     private int updateDelay = 60000; //Milliseconds. used to dictate database retrieval/update and parking lot updates
@@ -46,6 +44,11 @@ public class Main3Activity extends AppCompatActivity {
         Button lot9 = (Button)findViewById(R.id.button5);
         Button southlots = (Button)findViewById(R.id.movedown);
 
+        lot5.setText(Integer.toString(lots[0].curr_capacity) + "/" + Integer.toString(lots[4].getMax_capacity()));
+        lot6.setText(Integer.toString(lots[1].curr_capacity) + "/" + Integer.toString(lots[5].getMax_capacity()));
+        lot7.setText(Integer.toString(lots[2].curr_capacity) + "/" + Integer.toString(lots[6].getMax_capacity()));
+        lot8.setText(Integer.toString(lots[3].curr_capacity) + "/" + Integer.toString(lots[7].getMax_capacity()));
+        lot9.setText(Integer.toString(lots[3].curr_capacity) + "/" + Integer.toString(lots[8].getMax_capacity()));
 
         //Each button press sends a different lot object to the 2nd screen
         lot5.setOnClickListener(new View.OnClickListener() {
