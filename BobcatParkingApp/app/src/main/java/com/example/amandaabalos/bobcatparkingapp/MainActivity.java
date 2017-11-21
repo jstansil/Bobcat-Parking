@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Activity that calls the lot updater every minute (based on user clock)
         //Later we can also augment this to send/recieve info from the database server every minute
-        final GetData retreive = new GetData();
+        //final GetData retreive = new GetData();
         final Handler delay_call = new Handler();
         Runnable call_updater = new Runnable() {
             @Override
@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
                     //Code that is ran every minute
                     for(ParkingLot l : lots){
                         update.update(l);
-                        retreive.execute();
+                        //retreive.execute();
                     }
                 }
                 catch (Exception e) {
@@ -146,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
         delay_call.postDelayed(call_updater, updateDelay);
     }
 
+    /**
     //private class to get data
     private class GetData extends AsyncTask<String,String,String> {
 
@@ -224,4 +225,5 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(String msg) {
         }
     }
+    */
 }
