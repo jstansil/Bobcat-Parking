@@ -45,6 +45,8 @@ public class ParkingLot implements java.io.Serializable {
         return this.permit;
     }
 
+    public String getPermitsComma() { return this.permit.replace(";", ", "); }
+
     public double getDist(){
         return this.dist;
     }

@@ -18,13 +18,14 @@ public class ParkingInfo extends AppCompatActivity {
             name.setText(to_display.getName());
 
             TextView permits = (TextView)findViewById(R.id.permitlist);
-            permits.setText(to_display.getPermits());
+            permits.setText(to_display.getPermitsComma());
 
             TextView dist = (TextView)findViewById(R.id.distance);
             dist.setText(Double.toString(to_display.getDist()));
 
             TextView cap = (TextView)findViewById(R.id.current);
-            cap.setText(Integer.toString(to_display.curr_capacity));
+            //cap.setText(Integer.toString(to_display.curr_capacity));
+            cap.setText(": " + Integer.toString(to_display.curr_capacity) + "/" + Integer.toString(to_display.getMax_capacity()));
 
         }
     }
