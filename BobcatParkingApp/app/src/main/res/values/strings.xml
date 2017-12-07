@@ -10,4 +10,9 @@
     <string name="bowl1">North Bowl Lot One</string>
     <string name="bowl2">North Bowl Lot Two</string>
     <string name="title_activity_main3">Main3Activity</string>
+    <string name="mon">Monday</string>
+    <string name="tue">Tuesday</string>
+    <string name="wed">Wednesday</string>
+    <string name="thu">Thursday</string>
+    <string name="fri">Friday</string>
 </resources>

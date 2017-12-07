@@ -32,7 +32,7 @@ public class Main3Activity extends AppCompatActivity {
         }
         //Initial update of parking lots. this will fetch their status from the DB before they are displayed
         for(ParkingLot l: lots){
-            update.update(l);
+            update.update(l, "Monday");
         }
 
         //one button for each lot. right now the menu is super basic, and each button is initialized one by one.
@@ -110,7 +110,7 @@ public class Main3Activity extends AppCompatActivity {
                 try{
                     //Code that is ran every minute
                     for(ParkingLot l : lots){
-                        update.update(l);
+                        update.update(l,"Monday");
                     }
                 }
                 catch (Exception e) {
