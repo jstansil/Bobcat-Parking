@@ -54,7 +54,7 @@ public class ParkingInfo extends AppCompatActivity {
 
             TextView cap = (TextView)findViewById(R.id.current);
             //cap.setText(Integer.toString(to_display.curr_capacity));
-            cap.setText(": " + Integer.toString(to_display.curr_capacity) + "/" + Integer.toString(to_display.getMax_capacity()));
+            cap.setText(" : " + Integer.toString(to_display.curr_capacity) + "/" + Integer.toString(to_display.getMax_capacity()));
 
             //Bar graph class to display day/capacity info from database.
             barChart = (BarChart)findViewById(R.id.bargraph);
