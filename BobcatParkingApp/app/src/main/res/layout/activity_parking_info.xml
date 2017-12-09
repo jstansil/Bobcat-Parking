@@ -9,6 +9,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:background="#092f44"
         android:weightSum="2">
 
         <TextView
@@ -16,7 +17,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="#092f44"
             android:textAlignment="textEnd"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
             android:textColor="#a29061"
@@ -25,9 +25,10 @@
         <TextView
             android:id="@+id/current"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:autoSizeTextType="uniform"
             android:layout_weight="1"
-            android:background="#092f44"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
             android:textColor="#a29061"
             android:textStyle="bold" />
@@ -86,6 +87,12 @@
             android:text="TextView" />
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="15px"
+        android:background="#a29061" />
 
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/bargraph"
