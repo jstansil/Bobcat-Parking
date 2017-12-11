@@ -15,11 +15,18 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
+import android.widget.Spinner;
+import android.widget.AdapterView;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
-public class ParkingInfo extends AppCompatActivity {
+
+public class ParkingInfo extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
     BarChart barChart;
     LotUpdater updater;
     int[] averages;
+    String[] days = new String[]{"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
     //Don't modify this, code required to change the values of the x-axis
     class XAxisValueFormatter implements IAxisValueFormatter{
         private String[] xValues;
@@ -90,15 +97,44 @@ public class ParkingInfo extends AppCompatActivity {
             entry_set.setColors(ColorTemplate.COLORFUL_COLORS);
 
             //Sets x-axis values. currently there are only 5 days of the week.
-            String[] days = new String[]{"8AM", "9AM", "10AM", "11AM", "12PM", "1PM", "2PM", "3PM", "4PM", "5PM", "6PM", "7PM", "8PM"};
+            String[] times = new String[]{"8AM", "9AM", "10AM", "11AM", "12PM", "1PM", "2PM", "3PM", "4PM", "5PM", "6PM", "7PM", "8PM"};
             XAxis xAxis = barChart.getXAxis();
-            xAxis.setValueFormatter(new XAxisValueFormatter(days));
+            xAxis.setValueFormatter(new XAxisValueFormatter(times));
             BarData data = new BarData(entry_set);
             //visual configurations go here. for documentation: https://github.com/PhilJay/MPAndroidChart/wiki/Getting-Started
             data.setBarWidth(0.2f);
 
             barChart.setData(data);
 
+            //Getting the instance of Spinner and applying OnItemSelectedListener on it
+            Spinner daysSpinner = (Spinner) findViewById(R.id.daysSpinner);
+            daysSpinner.setOnItemSelectedListener(this);
+
+            //Creating the ArrayAdapter instance having the bank name list
+            ArrayAdapter daysAA = new ArrayAdapter(this, android.R.layout.simple_spinner_item, days);
+            daysAA.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            //Setting the ArrayAdapter data on the Spinner
+            daysSpinner.setAdapter(daysAA);
+
         }
     }
+    //Performing action onItemSelected and onNothing selected
+    //@Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position,long id) {
+        // On selecting a spinner item
+        String item = parent.getItemAtPosition(position).toString();
+
+        // Showing selected spinner item
+        //Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
+
+        //****************************CODE HERE FOR WHAT TO DO WHEN USER CHOOSES DAY*******************
+
+    }
+
+    //@Override
+    public void onNothingSelected(AdapterView<?> arg0) {
+        // TODO Auto-generated method stub
+
+    }
 }
+
