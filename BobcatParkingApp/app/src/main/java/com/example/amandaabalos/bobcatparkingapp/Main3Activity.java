@@ -37,18 +37,23 @@ public class Main3Activity extends AppCompatActivity {
 
         //one button for each lot. right now the menu is super basic, and each button is initialized one by one.
         //could probably be cleaner
-        Button lot5 = (Button)findViewById(R.id.button);
-        Button lot6 = (Button)findViewById(R.id.button2);
-        Button lot7 = (Button)findViewById(R.id.button3);
-        Button lot8 = (Button)findViewById(R.id.button4);
-        Button lot9 = (Button)findViewById(R.id.button5);
+        Button lot5 = (Button)findViewById(R.id.library1_btn);
+        Button lot6 = (Button)findViewById(R.id.library2_btn);
+        Button lot7 = (Button)findViewById(R.id.legrand_btn);
+        Button lot8 = (Button)findViewById(R.id.bowl1_btn);
+        Button lot9 = (Button)findViewById(R.id.bowl2_btn);
         Button southlots = (Button)findViewById(R.id.movedown);
 
-        lot5.setText(Integer.toString(lots[0].curr_capacity) + "/" + Integer.toString(lots[4].getMax_capacity()));
-        lot6.setText(Integer.toString(lots[1].curr_capacity) + "/" + Integer.toString(lots[5].getMax_capacity()));
-        lot7.setText(Integer.toString(lots[2].curr_capacity) + "/" + Integer.toString(lots[6].getMax_capacity()));
-        lot8.setText(Integer.toString(lots[3].curr_capacity) + "/" + Integer.toString(lots[7].getMax_capacity()));
-        lot9.setText(Integer.toString(lots[3].curr_capacity) + "/" + Integer.toString(lots[8].getMax_capacity()));
+        lot5.setText(Integer.toString(lots[4].curr_capacity) + "/" + Integer.toString(lots[4].getMax_capacity()));
+        setPercentColorBackground(lot5, lots[4].curr_capacity, lots[4].getMax_capacity());
+        lot6.setText(Integer.toString(lots[5].curr_capacity) + "/" + Integer.toString(lots[5].getMax_capacity()));
+        setPercentColorBackground(lot6, lots[5].curr_capacity, lots[5].getMax_capacity());
+        lot7.setText(Integer.toString(lots[6].curr_capacity) + "/" + Integer.toString(lots[6].getMax_capacity()));
+        setPercentColorBackground(lot7, lots[6].curr_capacity, lots[6].getMax_capacity());
+        lot8.setText(Integer.toString(lots[7].curr_capacity) + "/" + Integer.toString(lots[7].getMax_capacity()));
+        setPercentColorBackground(lot8, lots[7].curr_capacity, lots[7].getMax_capacity());
+        lot9.setText(Integer.toString(lots[8].curr_capacity) + "/" + Integer.toString(lots[8].getMax_capacity()));
+        setPercentColorBackground(lot9, lots[8].curr_capacity, lots[8].getMax_capacity());
 
         //Each button press sends a different lot object to the 2nd screen
         lot5.setOnClickListener(new View.OnClickListener() {
@@ -123,5 +128,19 @@ public class Main3Activity extends AppCompatActivity {
             }
         };
         delay_call.postDelayed(call_updater, updateDelay);
+    }
+
+    //Sets the button background depending on how full the lot is.
+    public void setPercentColorBackground(Button lot, int curr, int max){
+        int percent = curr * 100 / max;
+        if (percent<=100 & percent>=90){
+            lot.setBackgroundResource(R.drawable.btn_round_full);
+        } else if (percent<90 & percent>=75){
+            lot.setBackgroundResource(R.drawable.btn_round_semi_full);
+        } else if (percent<75 & percent>=0){
+            lot.setBackgroundResource(R.drawable.btn_round_empty);
+        } else {
+            lot.setBackgroundResource(R.drawable.btn_round_error);
+        }
     }
 }

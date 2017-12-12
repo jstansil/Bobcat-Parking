@@ -37,6 +37,7 @@ public class ParkingLot implements java.io.Serializable {
         return;
     }
 
+
     public String getName(){
         return this.name;
     }
