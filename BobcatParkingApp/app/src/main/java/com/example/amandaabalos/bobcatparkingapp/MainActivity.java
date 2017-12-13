@@ -158,6 +158,46 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+        lot5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), ParkingInfo.class);
+                i.putExtra("com.example.amandaabalos.bobcatparkingapp.lotrequest", lots[4]);
+                startActivity(i);
+            }
+        });
+        lot6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), ParkingInfo.class);
+                i.putExtra("com.example.amandaabalos.bobcatparkingapp.lotrequest", lots[5]);
+                startActivity(i);
+            }
+        });
+        lot7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), ParkingInfo.class);
+                i.putExtra("com.example.amandaabalos.bobcatparkingapp.lotrequest", lots[6]);
+                startActivity(i);
+            }
+        });
+        lot8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), ParkingInfo.class);
+                i.putExtra("com.example.amandaabalos.bobcatparkingapp.lotrequest", lots[7]);
+                startActivity(i);
+            }
+        });
+        lot9.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), ParkingInfo.class);
+                i.putExtra("com.example.amandaabalos.bobcatparkingapp.lotrequest", lots[8]);
+                startActivity(i);
+            }
+        });
 
 
         //Activity that calls the lot updater every minute (based on user clock)
