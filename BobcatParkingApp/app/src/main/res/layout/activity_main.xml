@@ -1,99 +1,239 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.amandaabalos.bobcatparkingapp.MainActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:weightSum="100" >
 
-    <ImageView
-        android:id="@+id/image"
+    <TextView
+        android:id="@+id/bobcatparking"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:scaleType="fitCenter"
-        android:src="@mipmap/lowerlots3"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp" />
-
-
-    <Button
-        android:id="@+id/lake1_btn"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:alpha=".75"
-        android:textSize="10sp"
-        android:background="@drawable/btn_round_empty"
-        android:padding="5dp"
-        android:text="@string/lake1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.458"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.578" />
-
-    <Button
-        android:id="@+id/lake2_btn"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:alpha=".75"
-        android:textSize="10sp"
-        android:background="@drawable/btn_round_empty"
-        android:padding="5dp"
-        android:text="@string/lake2"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.364"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.69" />
-
-    <Button
-        android:id="@+id/ecec_btn"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:alpha=".75"
-        android:textSize="10sp"
-        android:background="@drawable/btn_round_empty"
-        android:padding="5dp"
-        android:text="@string/ecec"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.235"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.578" />
-
-    <Button
-        android:id="@+id/evo_btn"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:alpha=".75"
-        android:textSize="10sp"
-        android:background="@drawable/btn_round_empty"
-        android:padding="5dp"
-        android:text="@string/evo"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.722"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.533" />
-
-    <Button
-        android:id="@+id/moveup"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Northern Lots"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.034"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        android:textSize="24sp"
+        android:gravity="center"
+        android:text="Bobcat Parking"
+        android:background="#092f44"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:textColor="#a29061"
+        android:textStyle="bold" />
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+
+        <ToggleButton
+            android:id="@+id/btn_south_lots"
+            style="@android:style/Widget.Holo.Button.Toggle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:checked="true"
+            android:textOff="South Lots"
+            android:textOn="South Lots"/>
+
+        <ToggleButton
+            android:id="@+id/btn_north_lots"
+            style="@android:style/Widget.Holo.Button.Toggle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textOff="North Lots"
+            android:textOn="North Lots"/>
+
+
+    </LinearLayout>
+
+    <ViewFlipper
+        android:id="@+id/main_display"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/south_lots"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp">
+
+            <ImageView
+                android:id="@+id/south__lots_image"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/lowerlots3" />
+
+            <Button
+                android:id="@+id/lake1_btn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:alpha=".75"
+                android:textSize="10sp"
+                android:background="@drawable/btn_round_empty"
+                android:padding="5dp"
+                android:text="@string/lake1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.458"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.578" />
+
+            <Button
+                android:id="@+id/lake2_btn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:alpha=".75"
+                android:textSize="10sp"
+                android:background="@drawable/btn_round_empty"
+                android:padding="5dp"
+                android:text="@string/lake2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.364"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.69" />
+
+            <Button
+                android:id="@+id/ecec_btn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:alpha=".75"
+                android:textSize="10sp"
+                android:background="@drawable/btn_round_empty"
+                android:padding="5dp"
+                android:text="@string/ecec"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.235"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.578" />
+
+            <Button
+                android:id="@+id/evo_btn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:alpha=".75"
+                android:textSize="10sp"
+                android:background="@drawable/btn_round_empty"
+                android:padding="5dp"
+                android:text="@string/evo"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.722"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.533" />
+
+
+
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/north_lots"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp">
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/upperlots"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="0dp" />
+
+            <Button
+                android:id="@+id/library1_btn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:alpha=".75"
+                android:background="@drawable/btn_round_empty"
+                android:padding="5dp"
+                android:text="@string/library1"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.39"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.965" />
+
+            <Button
+                android:id="@+id/library2_btn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:alpha=".75"
+                android:background="@drawable/btn_round_empty"
+                android:padding="5dp"
+                android:text="@string/library2"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.229"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.965" />
+
+            <Button
+                android:id="@+id/legrand_btn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:alpha=".75"
+                android:background="@drawable/btn_round_empty"
+                android:padding="5dp"
+                android:text="@string/legrand"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.725"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.499" />
+
+            <Button
+                android:id="@+id/bowl1_btn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:alpha=".75"
+                android:background="@drawable/btn_round_empty"
+                android:padding="5dp"
+                android:text="@string/bowl1"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.909"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.076" />
+
+            <Button
+                android:id="@+id/bowl2_btn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:alpha=".75"
+                android:background="@drawable/btn_round_empty"
+                android:padding="5dp"
+                android:text="@string/bowl2"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.909"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.219" />
+
+        </android.support.constraint.ConstraintLayout>
+
+    </ViewFlipper>
+
+
+</LinearLayout>
