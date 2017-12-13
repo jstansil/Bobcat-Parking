@@ -114,11 +114,11 @@ public class ParkingInfo extends AppCompatActivity implements AdapterView.OnItem
         //This code will be used with the database, it essentially queries the database for a day's average, populates an array
         // with each hourly average, and initializes the bar graph with those values
         /*
-        averages = updater.update(day);
-        for(int i = 0; i < averages.size(); i++){
-            entries.add(new BarEntry((i+1), float(averages[i]));
-        }
-        */
+        averages = updater.update(to_display, day);
+        for(int i = 0; i < 13; i++){
+            entries.add(new BarEntry((i+1), averages[i]));
+        } */
+
 
         BarDataSet entry_set = new BarDataSet(entries, "Average Capacity");
         entry_set.setColors(ColorTemplate.MATERIAL_COLORS);

@@ -52,12 +52,12 @@ public class MainActivity extends AppCompatActivity {
             lots[8] = new ParkingLot(250, "X;A;ACP;AUB;ALEV;LEV;B;BCP;DP;MP;FSC", 6.0, getString(R.string.bowl2));
         }
         //Initial update of parking lots. this will fetch their status from the DB before they are displayed
-        for(ParkingLot l: lots){
-            update.update(l, getString(R.string.mon));
+        final Calendar calendar = Calendar.getInstance();
+        final SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE", Locale.US);
+
+        for(ParkingLot l : lots) {
+            update.update(l, dayFormat.format(calendar.getTime()));
         }
-
-
-
         //Initialize buttons, one for each lot and one to switch to the north side of campus
         Button lot1 = (Button)findViewById(R.id.button);
         Button lot2 = (Button)findViewById(R.id.button2);
@@ -116,19 +116,15 @@ public class MainActivity extends AppCompatActivity {
         //Lot updater is currently configured to just randomly increment/decrement lots but it will
         //be able to query the database
 
-        final SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE", Locale.US);
-        final Calendar calendar = Calendar.getInstance();
-
         final Handler delay_call = new Handler();
         Runnable call_updater = new Runnable() {
             @Override
             public void run() {
-                try{
+                try {
                     //Code that is ran every minute
                     //Checks current day to make the correct query
-                    String weekDay = dayFormat.format(calendar.getTime());
-                    for(ParkingLot l : lots){
-                        update.update(l, weekDay);
+                    for (ParkingLot l : lots){
+                        update.update(l, dayFormat.format(calendar.getTime()));
                     }
                 }
                 catch (Exception e) {

@@ -1,14 +1,14 @@
 <resources>
     <string name="app_name">BobcatParkingApp</string>
-    <string name="lake1">Lake Lot One</string>
-    <string name="lake2">Lake Lot Two</string>
-    <string name="evo">Evolution Lot</string>
-    <string name="ecec">Early Childhood Education Center</string>
-    <string name="library1">Library Lot One</string>
-    <string name="library2">Library Lot Two</string>
-    <string name="legrand">Le Grand Lot</string>
-    <string name="bowl1">North Bowl Lot One</string>
-    <string name="bowl2">North Bowl Lot Two</string>
+    <string name="lake1">LakeLotOne</string>
+    <string name="lake2">LakeLotTwo</string>
+    <string name="evo">EvolutionLot</string>
+    <string name="ecec">EarlyChildhoodEducationCenter</string>
+    <string name="library1">LibraryLotOne</string>
+    <string name="library2">LibraryLotTwo</string>
+    <string name="legrand">LeGrandLot</string>
+    <string name="bowl1">NorthBowlLotOne</string>
+    <string name="bowl2">NorthBowlLotTwo</string>
     <string name="title_activity_main3">Main3Activity</string>
     <string name="mon">Monday</string>
     <string name="tue">Tuesday</string>
