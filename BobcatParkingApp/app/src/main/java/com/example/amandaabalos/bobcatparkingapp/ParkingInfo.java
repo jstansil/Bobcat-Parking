@@ -19,15 +19,15 @@ import android.widget.Spinner;
 import android.widget.AdapterView;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Toast;
+import java.util.Random;
 
 
 public class ParkingInfo extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
     BarChart barGraph;
-    LotUpdater updater;
     ParkingLot to_display;
     int[] averages;
     String[] days;
+    Random r;
 
 
     //Don't modify this, code required to change the values of the x-axis
@@ -47,9 +47,9 @@ public class ParkingInfo extends AppCompatActivity implements AdapterView.OnItem
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parking_info);
+        r = new Random();
 
         days = new String[]{getString(R.string.mon), getString(R.string.tue), getString(R.string.wed), getString(R.string.thu), getString(R.string.fri)};
-        updater = new LotUpdater();
 
         if (getIntent().hasExtra("com.example.amandaabalos.bobcatparkingapp.lotrequest")) {
             to_display = (ParkingLot)getIntent().getExtras().getSerializable("com.example.amandaabalos.bobcatparkingapp.lotrequest");
@@ -97,7 +97,8 @@ public class ParkingInfo extends AppCompatActivity implements AdapterView.OnItem
         //Sets bar values. this will be replaced with code that retrieves info from the database
         //for now, there are just test values
         List<BarEntry> entries = new ArrayList<>();
-        entries.add(new BarEntry(1, 48f));//test entries
+
+        /*entries.add(new BarEntry(1, 48f));//test entries
         entries.add(new BarEntry(2, 45f));
         entries.add(new BarEntry(3, 41f));
         entries.add(new BarEntry(4, 43f));
@@ -109,15 +110,17 @@ public class ParkingInfo extends AppCompatActivity implements AdapterView.OnItem
         entries.add(new BarEntry(10, 21f));
         entries.add(new BarEntry(11, 31f));
         entries.add(new BarEntry(12, 32f));
-        entries.add(new BarEntry(13, 21f));
+        entries.add(new BarEntry(13, 21f)); */
 
         //This code will be used with the database, it essentially queries the database for a day's average, populates an array
         // with each hourly average, and initializes the bar graph with those values
-        /*
-        averages = updater.update(to_display, day);
+
+
         for(int i = 0; i < 13; i++){
-            entries.add(new BarEntry((i+1), averages[i]));
-        } */
+            entries.add(new BarEntry((i+1), r.nextInt(to_display.getMax_capacity())));
+        }
+
+
 
 
         BarDataSet entry_set = new BarDataSet(entries, "Average Capacity");

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -16,20 +17,31 @@ import android.widget.ViewFlipper;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 
 public class MainActivity extends AppCompatActivity {
 
-    public ParkingLot [] lots;
-    private LotUpdater update;
-    private int updateDelay = 60000; //Milliseconds. used to dictate database retrieval/update and parking lot updates
+    public static int numlots = 9;
+    public ParkingLot[] lots;
+    Calendar calendar;
+    DatabaseReference capacities;
+    DatabaseReference select;
     private ViewFlipper mainViewFlipper;
+    public Button[] buttons;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //myDB = new Database(this);
-        update = new LotUpdater();
+        calendar = Calendar.getInstance();
+        SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE", Locale.US);
+        Calendar calendar = Calendar.getInstance();
+        final String weekDay = dayFormat.format(calendar.getTime());
 
         //initialize all the parking lots. could probably find a prettier way to do this
         //also, the values put in for distance & max capacity are wrong
@@ -39,11 +51,11 @@ public class MainActivity extends AppCompatActivity {
         lots[0] = new ParkingLot(200, "X;A;ACP;AUB;ALEV;B;BCP;DP;MP;AM;M;C;FSLEV;HCP;CCP", 10.0, getString(R.string.lake1));
         lots[1] = new ParkingLot(300, "X;DP;MP;ALEV;A;ACP;AUB;FSLEV;B;BCP;CCP;C;HCP", 12.0, getString(R.string.lake2));
 
-        lots[2] = new ParkingLot(15, "X;DP;MP;ALEV;A;ACP;AUB;FSLEV;B;BCP;C;CCP;HCP", 8.5,  getString(R.string.ecec));
+        lots[2] = new ParkingLot(15, "X;DP;MP;ALEV;A;ACP;AUB;FSLEV;B;BCP;C;CCP;HCP", 8.5, getString(R.string.ecec));
 
-        lots[3] = new ParkingLot(400, "X;DP;MP;ALEV;A;ACP;AUB;FSLEV;B;BCP;CCP;C;HCP", 11.0,  getString(R.string.evo));
+        lots[3] = new ParkingLot(400, "X;DP;MP;ALEV;A;ACP;AUB;FSLEV;B;BCP;CCP;C;HCP", 11.0, getString(R.string.evo));
 
-        lots[4] = new ParkingLot(20, "X;ACP;AUB;DP;EV;AM;VRIDE;EZPARK", 5.5,  getString(R.string.library1));
+        lots[4] = new ParkingLot(20, "X;ACP;AUB;DP;EV;AM;VRIDE;EZPARK", 5.5, getString(R.string.library1));
         lots[5] = new ParkingLot(15, "A;ACP;ALEV;MP", 5.0, getString(R.string.library2));
 
         lots[6] = new ParkingLot(100, "X;A;ACP;AUB;EZPARK;DP;MP;AM;ALEV", 2.5, getString(R.string.legrand));
@@ -51,12 +63,53 @@ public class MainActivity extends AppCompatActivity {
         lots[7] = new ParkingLot(200, "X;A;ACP;AUB;ALEV;LEV;B;BCP;DP;MP", 5.5, getString(R.string.bowl1));
         lots[8] = new ParkingLot(250, "X;A;ACP;AUB;ALEV;LEV;B;BCP;DP;MP;FSC", 6.0, getString(R.string.bowl2));
 
-        //Initial update of parking lots. this will fetch their status from the DB before they are displayed
+        buttons = new Button[9];
+        buttons[0] = (Button) findViewById(R.id.lake1_btn);
+        buttons[1] = (Button) findViewById(R.id.lake2_btn);
+        buttons[2] = (Button) findViewById(R.id.ecec_btn);
+        buttons[3] = (Button) findViewById(R.id.evo_btn);
+        buttons[4] = (Button) findViewById(R.id.library1_btn);
+        buttons[5] = (Button) findViewById(R.id.library2_btn);
+        buttons[6] = (Button) findViewById(R.id.legrand_btn);
+        buttons[7] = (Button) findViewById(R.id.bowl1_btn);
+        buttons[8] = (Button) findViewById(R.id.bowl2_btn);
 
-        for(ParkingLot l: lots){
-            update.update(l, getString(R.string.mon));
+
+        for(int j = 0; j < numlots; j++){
+            buttons[j].setText("...");
+            setPercentColorBackground(buttons[j], lots[j].curr_capacity, lots[j].getMax_capacity());
         }
 
+        //Initial update of parking lots. this will fetch their status from the DB before they are displayed
+        capacities = FirebaseDatabase.getInstance().getReference();
+        capacities.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (int i = 0; i < numlots; i++) {
+                    if (dataSnapshot.child(lots[i].getName() + "/" + weekDay + "/" + "7AM").getValue() != null) {
+                        lots[i].curr_capacity = dataSnapshot.child(lots[i].getName() + "/" + weekDay + "/" + "7AM").getValue(Long.class).intValue();
+                        buttons[i].setText(Integer.toString(lots[i].curr_capacity) + "/" + Integer.toString(lots[i].getMax_capacity()));
+                        setPercentColorBackground(buttons[i], lots[i].curr_capacity, lots[i].getMax_capacity());
+                    } else {
+                        Log.d("error", "is at " + lots[i].getName());
+                        lots[i].curr_capacity = 198;
+                        buttons[i].setText(Integer.toString(lots[i].curr_capacity) + "/" + Integer.toString(lots[i].getMax_capacity()));
+                        setPercentColorBackground(buttons[i], lots[i].curr_capacity, lots[i].getMax_capacity());
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+
+        //Initialize switchers and onclick listeners
 
         mainViewFlipper = (ViewFlipper) findViewById(R.id.main_display); // get the reference of ViewFlipper
         // Declare in and out animations and load them using AnimationUtils class
@@ -65,185 +118,73 @@ public class MainActivity extends AppCompatActivity {
         final Animation southIn = AnimationUtils.loadAnimation(this, R.anim.slide_in_up);
         final Animation southOut = AnimationUtils.loadAnimation(this, R.anim.slide_out_down);
 
-        final Calendar calendar = Calendar.getInstance();
-        final SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE", Locale.US);
-
-        for(ParkingLot l : lots) {
-            update.update(l, dayFormat.format(calendar.getTime()));
-        }
-        //Initialize buttons, one for each lot and one to switch to the north side of campus
-        final ToggleButton southLots = (ToggleButton)findViewById(R.id.btn_south_lots);
-        final ToggleButton northLots = (ToggleButton)findViewById(R.id.btn_north_lots);
-        Button lot1 = (Button)findViewById(R.id.lake1_btn);
-        Button lot2 = (Button)findViewById(R.id.lake2_btn);
-        Button lot3 = (Button)findViewById(R.id.ecec_btn);
-        Button lot4 = (Button)findViewById(R.id.evo_btn);
-        Button lot5 = (Button)findViewById(R.id.library1_btn);
-        Button lot6 = (Button)findViewById(R.id.library2_btn);
-        Button lot7 = (Button)findViewById(R.id.legrand_btn);
-        Button lot8 = (Button)findViewById(R.id.bowl1_btn);
-        Button lot9 = (Button)findViewById(R.id.bowl2_btn);
-
-        lot1.setText(Integer.toString(lots[0].curr_capacity) + "/" + Integer.toString(lots[0].getMax_capacity()));
-        setPercentColorBackground(lot1, lots[0].curr_capacity, lots[0].getMax_capacity());
-        lot2.setText(Integer.toString(lots[1].curr_capacity) + "/" + Integer.toString(lots[1].getMax_capacity()));
-        setPercentColorBackground(lot2, lots[1].curr_capacity, lots[1].getMax_capacity());
-        lot3.setText(Integer.toString(lots[2].curr_capacity) + "/" + Integer.toString(lots[2].getMax_capacity()));
-        setPercentColorBackground(lot3, lots[2].curr_capacity, lots[2].getMax_capacity());
-        lot4.setText(Integer.toString(lots[3].curr_capacity) + "/" + Integer.toString(lots[3].getMax_capacity()));
-        setPercentColorBackground(lot4, lots[3].curr_capacity, lots[3].getMax_capacity());
-        lot5.setText(Integer.toString(lots[4].curr_capacity) + "/" + Integer.toString(lots[4].getMax_capacity()));
-        setPercentColorBackground(lot5, lots[4].curr_capacity, lots[4].getMax_capacity());
-        lot6.setText(Integer.toString(lots[5].curr_capacity) + "/" + Integer.toString(lots[5].getMax_capacity()));
-        setPercentColorBackground(lot6, lots[5].curr_capacity, lots[5].getMax_capacity());
-        lot7.setText(Integer.toString(lots[6].curr_capacity) + "/" + Integer.toString(lots[6].getMax_capacity()));
-        setPercentColorBackground(lot7, lots[6].curr_capacity, lots[6].getMax_capacity());
-        lot8.setText(Integer.toString(lots[7].curr_capacity) + "/" + Integer.toString(lots[7].getMax_capacity()));
-        setPercentColorBackground(lot8, lots[7].curr_capacity, lots[7].getMax_capacity());
-        lot9.setText(Integer.toString(lots[8].curr_capacity) + "/" + Integer.toString(lots[8].getMax_capacity()));
-        setPercentColorBackground(lot9, lots[8].curr_capacity, lots[8].getMax_capacity());
+        final ToggleButton southLots = (ToggleButton) findViewById(R.id.btn_south_lots);
+        final ToggleButton northLots = (ToggleButton) findViewById(R.id.btn_north_lots);
 
         //Listeners that swap between south and north lots
         //Swaps between two Views in ViewFlipper
         northLots.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (southLots.isChecked()){
+                if (southLots.isChecked()) {
                     southLots.setChecked(false);
                     northLots.setChecked(true);
                     // set the animation type to ViewFlipper
                     mainViewFlipper.setInAnimation(northIn);
                     mainViewFlipper.setOutAnimation(southOut);
                     mainViewFlipper.showNext();
-                } else {northLots.setChecked(true);}
+                } else {
+                    northLots.setChecked(true);
+                }
             }
         });
         southLots.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (northLots.isChecked()){
+                if (northLots.isChecked()) {
                     northLots.setChecked(false);
                     southLots.setChecked(true);
                     // set the animation type to ViewFlipper
                     mainViewFlipper.setInAnimation(northOut);
                     mainViewFlipper.setOutAnimation(southIn);
                     mainViewFlipper.showPrevious();
-                }   else {southLots.setChecked(true);}
-            }
-        });
-        //Each button press sends a different lot object to the display info screen
-        lot1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), ParkingInfo.class);
-                i.putExtra("com.example.amandaabalos.bobcatparkingapp.lotrequest", lots[0]);
-                startActivity(i);
-            }
-        });
-        lot2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), ParkingInfo.class);
-                i.putExtra("com.example.amandaabalos.bobcatparkingapp.lotrequest", lots[1]);
-                startActivity(i);
-            }
-        });
-        lot3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), ParkingInfo.class);
-                i.putExtra("com.example.amandaabalos.bobcatparkingapp.lotrequest", lots[2]);
-                startActivity(i);
-            }
-        });
-        lot4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), ParkingInfo.class);
-                i.putExtra("com.example.amandaabalos.bobcatparkingapp.lotrequest", lots[3]);
-                startActivity(i);
-            }
-        });
-        lot5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), ParkingInfo.class);
-                i.putExtra("com.example.amandaabalos.bobcatparkingapp.lotrequest", lots[4]);
-                startActivity(i);
-            }
-        });
-        lot6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), ParkingInfo.class);
-                i.putExtra("com.example.amandaabalos.bobcatparkingapp.lotrequest", lots[5]);
-                startActivity(i);
-            }
-        });
-        lot7.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), ParkingInfo.class);
-                i.putExtra("com.example.amandaabalos.bobcatparkingapp.lotrequest", lots[6]);
-                startActivity(i);
-            }
-        });
-        lot8.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), ParkingInfo.class);
-                i.putExtra("com.example.amandaabalos.bobcatparkingapp.lotrequest", lots[7]);
-                startActivity(i);
-            }
-        });
-        lot9.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), ParkingInfo.class);
-                i.putExtra("com.example.amandaabalos.bobcatparkingapp.lotrequest", lots[8]);
-                startActivity(i);
-            }
-        });
-
-
-        //Activity that calls the lot updater every minute (based on user clock)
-        //Lot updater is currently configured to just randomly increment/decrement lots but it will
-        //be able to query the database
-
-        final Handler delay_call = new Handler();
-        Runnable call_updater = new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    //Code that is ran every minute
-                    //Checks current day to make the correct query
-                    for (ParkingLot l : lots){
-                        update.update(l, dayFormat.format(calendar.getTime()));
-                    }
-                }
-                catch (Exception e) {
-                    // TODO: handle exception
-                }
-                finally{
-                    //recursively call the same runnable to execute it at a regular interval
-                    delay_call.postDelayed(this, updateDelay);
+                } else {
+                    southLots.setChecked(true);
                 }
             }
-        };
-        delay_call.postDelayed(call_updater, updateDelay);
-    }
+        });
+        for(int k = 0; k < numlots; k++){
+            final int z = k;
+            buttons[k].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i = new Intent(getApplicationContext(), ParkingInfo.class);
+                    i.putExtra("com.example.amandaabalos.bobcatparkingapp.lotrequest", lots[z]);
+                    startActivity(i);
+                }
+            });
+        }
 
-    //Sets the button background depending on how full the lot is.
-    public void setPercentColorBackground(Button lot, int curr, int max){
+}
+
+    public void setPercentColorBackground(Button lot, int curr, int max) {
         int percent = curr * 100 / max;
-        if (percent<=100 & percent>=90){
+        if (percent <= 100 & percent >= 50) {
             lot.setBackgroundResource(R.drawable.btn_round_full);
-        } else if (percent<90 & percent>=75){
+            Log.d("test", "max button");
+        } else if (percent < 50 & percent >= 25) {
             lot.setBackgroundResource(R.drawable.btn_round_semi_full);
-        } else if (percent<75 & percent>=0){
+            Log.d("test", "med button");
+        } else if (percent < 25 & percent >= 0) {
             lot.setBackgroundResource(R.drawable.btn_round_empty);
+            Log.d("test", "small button");
         } else {
             lot.setBackgroundResource(R.drawable.btn_round_error);
         }
+        lot.invalidate();
+    }
+
+    public void setCapacity(int cap, ParkingLot p){
+        p.curr_capacity = cap;
     }
 }
