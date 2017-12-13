@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "375928708248",
+    "firebase_url": "https://bobcatparkingapp-1ad80.firebaseio.com",
+    "project_id": "bobcatparkingapp-1ad80",
+    "storage_bucket": "bobcatparkingapp-1ad80.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:375928708248:android:bf23b46814314bf4",
+        "android_client_info": {
+          "package_name": "com.example.amandaabalos.bobcatparkingapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "375928708248-1h8hejj7s98b9d14c64h47pkhpmgdtrr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.amandaabalos.bobcatparkingapp",
+            "certificate_hash": "066d9e49ad042b3eeb78d644b686a4813c1b9ddf"
+          }
+        },
+        {
+          "client_id": "375928708248-d2babf1q5crsa6oqml6s22gfrs5l7qbs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmJetX9OVIXIZo7AKMI2r-z4gabML5p08"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "375928708248-d2babf1q5crsa6oqml6s22gfrs5l7qbs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
